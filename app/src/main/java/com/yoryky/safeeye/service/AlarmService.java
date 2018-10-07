@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.yoryky.safeeye.R;
@@ -107,20 +108,20 @@ public class AlarmService extends Service {
         }).start();
     }
 
-    private void remindWork(int time){
-        if(time != 0)return;
+    private void remindWork(int time) {
+        if (time != 0) return;
         remindWorkVibrate();
     }
 
-    private void remindRest(int time){
-        if(time != 0)return;
+    private void remindRest(int time) {
+        if (time != 0) return;
         remindRestVibrate();
         Message message = Message.obtain();
         message.what = 1;
         handler.sendMessage(message);
     }
 
-    private void initVibrator(){
+    private void initVibrator() {
         vibrator = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
     }
 
@@ -140,8 +141,8 @@ public class AlarmService extends Service {
         }
     }
 
-    private void remindRestVibrate(){
-        vibrator.vibrate(new long[]{500,500,500,500,500,500},-1);
+    private void remindRestVibrate() {
+        vibrator.vibrate(new long[]{500, 500, 500, 500, 500, 500}, -1);
     }
 
     private void remindRestVoice() {
@@ -150,8 +151,8 @@ public class AlarmService extends Service {
         }
     }
 
-    private void remindWorkVibrate(){
-        vibrator.vibrate(new long[]{500,500,500,500},-1);
+    private void remindWorkVibrate() {
+        vibrator.vibrate(new long[]{500, 500, 500, 500}, -1);
     }
 
 
@@ -163,15 +164,16 @@ public class AlarmService extends Service {
 
     private void showRemindRestDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert);
-        builder.setTitle("护眼提示");
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setMessage("又到了保护眼睛的时间啦,请选择休息时间！");
-        View view = View.inflate(this,R.layout.dialog_rest,null);
+        //builder.setTitle("护眼提示");
+        //builder.setIcon(R.mipmap.ic_launcher);
+       // builder.setMessage("又到了保护眼睛的时间啦,请选择休息时间！");
+        View view = View.inflate(this, R.layout.dialog_rest, null);
         builder.setView(view);
         final AlertDialog alertDialog = builder.create();
         TextView tvTime1 = (TextView) view.findViewById(R.id.tv_rest_time1);
-        TextView tvTime2 = (TextView)view.findViewById(R.id.tv_rest_time2);
-        TextView tvCancel = (TextView)view.findViewById(R.id.tv_cancel);
+        TextView tvTime2 = (TextView) view.findViewById(R.id.tv_rest_time2);
+        TextView tvCancel = (TextView) view.findViewById(R.id.tv_cancel);
+        CheckBox cbDefault = (CheckBox) view.findViewById(R.id.cb_default);
         tvTime1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
